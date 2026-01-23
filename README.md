@@ -15,6 +15,6 @@ This project contains a completed version of the web app from [Angular's Tour of
 -   [NgOptimizedImage](https://angular.dev/guide/image-optimization) for automatic image loading optimizations
 -   [Router view transitions](https://angular.dev/guide/routing/route-transition-animations#how-view-transitions-work)
 -   [Fetch-based HttpClient](https://angular.dev/guide/http/setup#withfetch) via `withFetch()`
--   [Tailwind CSS](https://tailwindcss.com/docs/guides/angular) atomic styling with a [TypeScript configuration file](https://tailwindcss.com/blog/tailwindcss-v3-3#esm-and-typescript-support)
+-   [Tailwind CSS v4](https://tailwindcss.com/docs/installation/framework-guides/angular) with config colocated in CSS
 -   [Tailwind UI](https://tailwindui.com/components) design system components
 -   Placeholder loading elements to prevent [cumulative layout shift](https://web.dev/cls/)
