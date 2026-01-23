@@ -17,7 +17,7 @@ import { MessageService } from '../services/message.service';
 
         <div class="flow-root">
             <!-- Prevent CLS with a placeholder element: https://web.dev/cls/ -->
-            @if (messageService.cleared) {
+            @if (messageService.cleared()) {
                 <span></span>
             } @else if (!messageService.messages().length) {
                 <span

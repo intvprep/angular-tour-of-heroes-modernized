@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { NgOptimizedImage } from '@angular/common';
 import { Event, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { MessagesComponent } from './components/messages.component';
@@ -8,7 +9,7 @@ import { MessagesComponent } from './components/messages.component';
     selector: 'app-root',
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [RouterOutlet, RouterLink, MessagesComponent],
+    imports: [RouterOutlet, RouterLink, MessagesComponent, NgOptimizedImage],
     template: `
         <div class="min-h-full">
             <nav class="sticky top-0 border-b border-gray-200 bg-white">
@@ -18,7 +19,9 @@ import { MessagesComponent } from './components/messages.component';
                             <div class="flex flex-shrink-0 items-center">
                                 <img
                                     class="h-12 w-auto lg:block"
-                                    src="/assets/angular-signals.png"
+                                    ngSrc="/assets/angular-signals.png"
+                                    width="48"
+                                    height="48"
                                     alt="Angular Logo"
                                 />
                             </div>
@@ -94,6 +97,6 @@ export class AppComponent {
         ),
     );
 
-    isHeroes = () => this.location() === '/heroes';
-    isDashboard = () => this.location() === '/dashboard';
+    isHeroes = computed(() => this.location() === '/heroes');
+    isDashboard = computed(() => this.location() === '/dashboard');
 }

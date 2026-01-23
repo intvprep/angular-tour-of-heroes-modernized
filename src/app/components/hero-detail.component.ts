@@ -1,6 +1,5 @@
 import { Location, NgClass } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { Hero } from '../models/hero';
 import { HeroService } from '../services/hero.service';
 
@@ -108,15 +107,23 @@ import { HeroService } from '../services/hero.service';
         </div>
     `,
 })
-export class HeroDetailComponent implements OnInit {
+export class HeroDetailComponent {
     hero = signal<Hero | undefined>(undefined);
+    id = input.required<string>();
 
-    private route = inject(ActivatedRoute);
     private heroService = inject(HeroService);
     private location = inject(Location);
 
-    ngOnInit() {
-        this.getHero();
+    constructor() {
+        effect(onCleanup => {
+            const id = Number.parseInt(this.id(), 10);
+            if (Number.isNaN(id)) return;
+
+            const subscription = this.heroService.getHero(id).subscribe(hero => {
+                this.hero.set(hero);
+            });
+            onCleanup(() => subscription.unsubscribe());
+        });
     }
 
     onInput(value: string) {
@@ -124,11 +131,6 @@ export class HeroDetailComponent implements OnInit {
             if (hero) hero.name = value;
             return hero;
         });
-    }
-
-    getHero() {
-        let id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-        this.heroService.getHero(id).subscribe(hero => this.hero.set(hero));
     }
 
     goBack() {

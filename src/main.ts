@@ -1,20 +1,30 @@
 import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, Routes, withInMemoryScrolling } from '@angular/router';
+import {
+    provideRouter,
+    Routes,
+    withComponentInputBinding,
+    withInMemoryScrolling,
+    withViewTransitions,
+} from '@angular/router';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './app/services/in-memory-data.service';
 
 import { AppComponent } from './app/app.component';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { DashboardComponent } from './app/components/dashboard.component';
 import { HeroDetailComponent } from './app/components/hero-detail.component';
 import { HeroesComponent } from './app/components/heroes.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-    { path: 'dashboard', component: DashboardComponent, title: 'Dashboard | Tour of Heroes' },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        title: 'Dashboard | Tour of Heroes',
+    },
     {
         path: 'detail/:id',
         component: HeroDetailComponent,
@@ -29,8 +39,13 @@ const routes: Routes = [
 
 bootstrapApplication(AppComponent, {
     providers: [
-        provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
-        provideHttpClient(),
+        provideRouter(
+            routes,
+            withComponentInputBinding(),
+            withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+            withViewTransitions(),
+        ),
+        provideHttpClient(withFetch()),
 
         // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
         // and returns simulated server responses.

@@ -1,12 +1,10 @@
 import { Component, inject, model } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Hero } from '../models/hero';
 import { HeroService } from '../services/hero.service';
 
 @Component({
     selector: 'app-new-hero',
     standalone: true,
-    imports: [RouterLink],
     template: `
         <div class="mb-12 mt-6 bg-white shadow sm:rounded-lg">
             <div class="px-4 py-5 sm:p-6">
