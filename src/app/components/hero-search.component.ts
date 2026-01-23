@@ -12,13 +12,13 @@ import { HeroService } from '../services/hero.service';
     imports: [RouterLink],
     template: `
         <div class="w-1/2">
-            <label class="block text-sm font-medium leading-6 text-gray-900" for="search-box">
+            <label class="block text-sm leading-6 font-medium text-gray-900" for="search-box">
                 Hero Search
             </label>
             <div class="mt-2">
                 <input
                     #searchBox
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6"
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-red-600 focus:ring-inset sm:text-sm sm:leading-6"
                     id="search-box"
                     type="text"
                     placeholder="e.g. Superman, Captain Marvel, Batman, Spider-man"
@@ -28,21 +28,21 @@ import { HeroService } from '../services/hero.service';
 
             @if (heroes().length) {
                 <ul
-                    class="border-1 mt-2 divide-y divide-gray-200 rounded border border-gray-300 bg-white"
+                    class="mt-2 divide-y divide-gray-200 rounded border border-1 border-gray-300 bg-white"
                     role="list"
                 >
-                @for (hero of heroes(); track hero.id; let first = $first; let last = $last) {
-                    <li
-                        class="flex py-4 hover:cursor-pointer hover:bg-gray-100"
-                        routerLink="/detail/{{ hero.id }}"
-                        [class.rounded-b]="last"
-                        [class.rounded-t]="first"
-                    >
-                        <span class="px-2 py-0.5 text-sm font-medium text-gray-900">
-                            {{ hero.name }}
-                        </span>
-                    </li>
-                }
+                    @for (hero of heroes(); track hero.id; let first = $first; let last = $last) {
+                        <li
+                            class="flex py-4 hover:cursor-pointer hover:bg-gray-100"
+                            routerLink="/detail/{{ hero.id }}"
+                            [class.rounded-b]="last"
+                            [class.rounded-t]="first"
+                        >
+                            <span class="px-2 py-0.5 text-sm font-medium text-gray-900">
+                                {{ hero.name }}
+                            </span>
+                        </li>
+                    }
                 </ul>
             }
         </div>
@@ -59,9 +59,9 @@ export class HeroSearchComponent {
             // ignore new term if same as previous term
             distinctUntilChanged(),
             // switch to new search observable each time the term changes
-            switchMap((term: string) => this.heroService.searchHeroes(term))
+            switchMap((term: string) => this.heroService.searchHeroes(term)),
         ),
-        { initialValue: [] as Hero[] }
+        { initialValue: [] as Hero[] },
     );
 
     search(term: string) {

@@ -9,7 +9,7 @@ This project is an Angular single-page application. Write functional, maintainab
 - Use signals for all state management when possible or RxJS when needed for compatibility
 - Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
 - Use `NgOptimizedImage` for all static images.
-  - `NgOptimizedImage` does not work for inline base64 images.
+    - `NgOptimizedImage` does not work for inline base64 images.
 
 ### Accessibility Requirements
 
@@ -89,7 +89,7 @@ bd sync               # Sync with git
 
 ```sh
 # IMPORTANT: Always quote titles and descriptions with double quotes
-bd create "Issue title" -t bug|feature|task -p 0-4 -d "Description" --json
+bd create "Issue title" -t bug | feature | task -p 0-4 -d "Description" --json
 
 # Create with acceptance criteria
 bd create "Issue title" -t feature -p 1 -d "Description" --acceptance "Acceptance Criteria" --json
@@ -102,13 +102,13 @@ bd create "Issue title" -t bug -p 1 -l bug,critical --json
 bd create "Issue title" -t bug -p 1 --label bug,critical --json
 
 # Create epic with hierarchical child tasks
-bd create "Auth System" -t epic -p 1 --json                     # Returns: bd-a3f8e9
-bd create "Login UI" -p 1 --parent bd-a3f8e9 --json             # Auto-assigned: bd-a3f8e9.1
-bd create "Backend validation" -p 1 --parent bd-a3f8e9 --json   # Auto-assigned: bd-a3f8e9.2
-bd create "Tests" -p 1 --parent bd-a3f8e9 --json                # Auto-assigned: bd-a3f8e9.3
+bd create "Auth System" -t epic -p 1 --json                   # Returns: bd-a3f8e9
+bd create "Login UI" -p 1 --parent bd-a3f8e9 --json           # Auto-assigned: bd-a3f8e9.1
+bd create "Backend validation" -p 1 --parent bd-a3f8e9 --json # Auto-assigned: bd-a3f8e9.2
+bd create "Tests" -p 1 --parent bd-a3f8e9 --json              # Auto-assigned: bd-a3f8e9.3
 
 # Create and link discovered work (one command)
-bd create "Found bug" -t bug -p 1 --deps discovered-from:<parent-id> --json
+bd create "Found bug" -t bug -p 1 --deps discovered-from: < parent-id > --json
 ```
 
 ### Git Commit Quality Standards
@@ -117,34 +117,33 @@ All work MUST be committed using **small, focused, high-quality commits**. Commi
 
 **MANDATORY RULES:**
 
-* **One commit = one logical change**
+- **One commit = one logical change**
+    - One behavior change, fix, refactor, or mechanical update
+    - Do NOT mix unrelated changes
 
-  * One behavior change, fix, refactor, or mechanical update
-  * Do NOT mix unrelated changes
-* **Commits must map to intent**
+- **Commits must map to intent**
+    - A commit should clearly answer: _“What changed, and why?”_
 
-  * A commit should clearly answer: *“What changed, and why?”*
-* **Commits must be safe to revert**
+- **Commits must be safe to revert**
+    - Reverting a commit should not break unrelated functionality
 
-  * Reverting a commit should not break unrelated functionality
-* **Never commit broken states**
-
-  * Tests, builds, and linters must pass at every commit point
+- **Never commit broken states**
+    - Tests, builds, and linters must pass at every commit point
 
 #### Commit Size & Scope
 
-* Prefer **many small commits** over a few large ones
-* If a change feels “too small to commit,” it probably isn’t
-* If a commit message needs “and” or “also,” it’s too big
-* Refactors, formatting, and logic changes MUST be separate commits
+- Prefer **many small commits** over a few large ones
+- If a change feels “too small to commit,” it probably isn’t
+- If a commit message needs “and” or “also,” it’s too big
+- Refactors, formatting, and logic changes MUST be separate commits
 
 **Examples of good commit boundaries:**
 
-* Add validation logic → commit
-* Update tests for validation → commit
-* Refactor helper function → commit
-* Rename variables or files → commit
-* Reformat codebase → commit (no logic changes allowed)
+- Add validation logic → commit
+- Update tests for validation → commit
+- Refactor helper function → commit
+- Rename variables or files → commit
+- Reformat codebase → commit (no logic changes allowed)
 
 #### Commit Messages
 
@@ -161,42 +160,41 @@ Reference relevant bd IDs when applicable.
 
 **Good examples:**
 
-* `Fix null handling in auth token parsing`
-* `Add tests for expired session handling`
-* `Refactor request middleware for clarity`
+- `Fix null handling in auth token parsing`
+- `Add tests for expired session handling`
+- `Refactor request middleware for clarity`
 
 **Bad examples (NOT allowed):**
 
-* `WIP`
-* `Fix stuff`
-* `Updates`
-* `Changes`
-* `Final`
-* `Oops`
+- `WIP`
+- `Fix stuff`
+- `Updates`
+- `Changes`
+- `Final`
+- `Oops`
 
 #### Relationship to Beads Issues
 
-* Commits SHOULD align with the current `bd` issue
-* Large issues SHOULD result in multiple commits
-* Discovered work MUST result in:
-
-  1. A new `bd` issue
-  2. A commit that addresses only that issue
+- Commits SHOULD align with the current `bd` issue
+- Large issues SHOULD result in multiple commits
+- Discovered work MUST result in:
+    1. A new `bd` issue
+    2. A commit that addresses only that issue
 
 #### Staging Discipline
 
-* Use `git add -p` or equivalent to stage intentionally
-* Do NOT rely on `git add .` unless the commit is truly atomic
-* Never commit debug logs, commented-out code, or experiments
+- Use `git add -p` or equivalent to stage intentionally
+- Do NOT rely on `git add .` unless the commit is truly atomic
+- Never commit debug logs, commented-out code, or experiments
 
 #### Before You Commit
 
 Before every commit, verify:
 
-* Diff matches the commit message exactly
-* No unrelated whitespace or formatting noise
-* No TODOs added without a corresponding `bd` issue
-* The commit stands alone and tells a clear story
+- Diff matches the commit message exactly
+- No unrelated whitespace or formatting noise
+- No TODOs added without a corresponding `bd` issue
+- The commit stands alone and tells a clear story
 
 ### Beads Session Completion
 
@@ -212,7 +210,7 @@ Before every commit, verify:
     git pull --rebase
     bd sync
     git push
-    git status  # MUST show "up to date with origin"
+    git status # MUST show "up to date with origin"
     ```
 5. **Clean up** - Clear stashes, prune remote branches
 6. **Verify** - All changes committed AND pushed
@@ -340,7 +338,7 @@ Agents should treat these as instructions to drive the browser through Chrome De
 - **JavaScript framework**: Angular (v21.x)
 - **Router**: Angular Router
 - **Styling**: Tailwind CSS (v4.x)
-- **Unstyled Components**: [Angular Aria](https://angular.dev/guide/aria/overview) 
+- **Unstyled Components**: [Angular Aria](https://angular.dev/guide/aria/overview)
 - **Animations**: [Angular Animations](https://angular.dev/guide/animations)
 - **Formatter**: Prettier
 

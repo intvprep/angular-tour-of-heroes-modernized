@@ -57,7 +57,7 @@ import { MessagesComponent } from './components/messages.component';
                     </div>
                     <div class="relative flex justify-center">
                         <span
-                            class="bg-gray-50 px-3 text-base font-semibold leading-6 text-gray-900"
+                            class="bg-gray-50 px-3 text-base leading-6 font-semibold text-gray-900"
                         >
                             Messages
                         </span>

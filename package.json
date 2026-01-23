@@ -1,15 +1,16 @@
 {
     "name": "angular-toh-modernized",
     "version": "0.1.0",
+    "type": "module",
+    "private": true,
     "scripts": {
+        "build": "ng build",
         "dev": "ng serve",
         "fmt": "prettier -w .",
+        "ng": "ng",
         "serve": "http-server ./dist/angular-toh-modernized",
-        "build": "ng build",
-        "watch": "ng build --watch --configuration development",
-        "ng": "ng"
+        "watch": "ng build --watch --configuration development"
     },
-    "private": true,
     "dependencies": {
         "@angular/common": "^21.1.1",
         "@angular/compiler": "^21.1.1",

@@ -53,7 +53,7 @@ bootstrapApplication(AppComponent, {
         importProvidersFrom(
             HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
                 dataEncapsulation: false,
-            })
+            }),
         ),
     ],
 });

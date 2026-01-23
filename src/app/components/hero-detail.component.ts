@@ -32,7 +32,7 @@ import { HeroService } from '../services/hero.service';
 
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-base font-semibold leading-6 text-gray-900">
+                <h3 class="text-base leading-6 font-semibold text-gray-900">
                     @if (!hero()) {
                         <span class="flex h-6 w-40 animate-pulse bg-gray-300"></span>
                     } @else {
@@ -83,7 +83,7 @@ import { HeroService } from '../services/hero.service';
                                     'focus:ring-red-600',
                                     'sm:text-sm',
                                     'sm:leading-6',
-                                    'px-3'
+                                    'px-3',
                                 ]"
                                 [value]="hero()?.name"
                                 (input)="onInput(nameInput.value)"

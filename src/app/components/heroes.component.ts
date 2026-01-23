@@ -11,7 +11,7 @@ import { NewHeroComponent } from './new-hero.component';
     template: `
         <header>
             <div class="mx-auto max-w-7xl">
-                <h1 class="text-3xl font-semibold leading-tight tracking-tight text-gray-900">
+                <h1 class="text-3xl leading-tight font-semibold tracking-tight text-gray-900">
                     My Heroes
                 </h1>
             </div>
@@ -51,7 +51,7 @@ import { NewHeroComponent } from './new-hero.component';
                             {{ hero.id }}
                         </div>
                         <div
-                            class="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-gray-200 bg-white"
+                            class="flex flex-1 items-center justify-between truncate rounded-r-md border-t border-r border-b border-gray-200 bg-white"
                         >
                             <div class="flex-1 truncate px-4 py-2 text-sm">
                                 <a
@@ -64,7 +64,7 @@ import { NewHeroComponent } from './new-hero.component';
                             </div>
                             <div class="flex-shrink-0 pr-2">
                                 <button
-                                    class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-transparent bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                    class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-transparent bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
                                     type="button"
                                     (click)="delete(hero)"
                                 >

@@ -6,9 +6,7 @@ export class MessageService {
     private clearedAt = signal(0);
     private lastAddedAt = signal(0);
 
-    cleared = computed(
-        () => !this.messages().length && this.clearedAt() > this.lastAddedAt(),
-    );
+    cleared = computed(() => !this.messages().length && this.clearedAt() > this.lastAddedAt());
 
     add(message: string) {
         this.messages.update(messages => [...messages, message]);

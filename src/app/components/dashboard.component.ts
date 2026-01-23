@@ -12,7 +12,7 @@ import { HeroSearchComponent } from './hero-search.component';
     template: `
         <header>
             <div class="mx-auto max-w-7xl">
-                <h1 class="text-3xl font-semibold leading-tight tracking-tight text-gray-900">
+                <h1 class="text-3xl leading-tight font-semibold tracking-tight text-gray-900">
                     Top Heroes
                 </h1>
             </div>
@@ -39,8 +39,8 @@ import { HeroSearchComponent } from './hero-search.component';
                     </svg>
                     <span class="sr-only">Loading...</span>
                 </span>
-            } 
-            
+            }
+
             @for (hero of heroes(); track hero.id) {
                 <a
                     class="inline-flex items-center rounded-full bg-red-100 px-4 py-2 text-sm font-medium text-red-800 hover:bg-red-200"

@@ -7,7 +7,7 @@ import { MessageService } from '../services/message.service';
     template: `
         <div class="flex flex-row">
             <button
-                class="ml-auto rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                class="ml-auto rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
                 type="button"
                 (click)="messageService.clear()"
             >
@@ -20,10 +20,7 @@ import { MessageService } from '../services/message.service';
             @if (messageService.cleared()) {
                 <span></span>
             } @else if (!messageService.messages().length) {
-                <span
-                    class="px-2 py-1 text-sm font-medium"
-                    role="status"
-                >
+                <span class="px-2 py-1 text-sm font-medium" role="status">
                     <svg
                         class="mr-2 h-7 w-7 animate-spin fill-blue-600 text-gray-200"
                         aria-hidden="true"
@@ -47,7 +44,7 @@ import { MessageService } from '../services/message.service';
                         <li>
                             <div class="relative pb-8">
                                 <span
-                                    class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200"
+                                    class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
                                     aria-hidden="true"
                                 ></span>
                                 <div class="relative flex space-x-3">
@@ -68,7 +65,9 @@ import { MessageService } from '../services/message.service';
                                             </svg>
                                         </span>
                                     </div>
-                                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                    <div
+                                        class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5"
+                                    >
                                         <div>
                                             <p class="text-sm text-gray-500">
                                                 {{ message }}

@@ -78,10 +78,10 @@
                     "builder": "@angular/build:dev-server",
                     "configurations": {
                         "production": {
-                          "buildTarget": "angular-toh-modernized:build:production"
+                            "buildTarget": "angular-toh-modernized:build:production"
                         },
                         "development": {
-                          "buildTarget": "angular-toh-modernized:build:development"
+                            "buildTarget": "angular-toh-modernized:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -89,13 +89,13 @@
                 "extract-i18n": {
                     "builder": "@angular/build:extract-i18n",
                     "options": {
-                      "buildTarget": "angular-toh-modernized:build"
+                        "buildTarget": "angular-toh-modernized:build"
                     }
                 }
             }
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false
     }
 }

@@ -1,10 +1,10 @@
-import type { Config } from "prettier";
+import type { Config } from 'prettier';
 
 export default {
     printWidth: 100,
     tabWidth: 4,
     singleQuote: true,
-    arrowParens: "avoid",
+    arrowParens: 'avoid',
 
     // MARK: Defaults
     // useTabs: false,
@@ -14,38 +14,38 @@ export default {
     // proseWrap: "preserve",
 
     plugins: [
-        "@prettier/plugin-oxc",
-        "prettier-plugin-pkg",
-        "prettier-plugin-sh",
-        "prettier-plugin-tailwindcss",
-        "prettier-plugin-toml",
+        '@prettier/plugin-oxc',
+        'prettier-plugin-pkg',
+        'prettier-plugin-sh',
+        'prettier-plugin-tailwindcss',
+        'prettier-plugin-toml',
     ],
 
-    attributeSort: "ASC",
+    attributeSort: 'ASC',
     attributeGroups: [
-        "$ANGULAR_STRUCTURAL_DIRECTIVE",
-        "$ANGULAR_ELEMENT_REF",
-        "$CODE_GUIDE",
-        "^formControlName$",
-        "^icon$",
-        "^label$",
-        "^placeholder$",
-        "^routerLink$",
-        "^[a-z]",
-        "$ANGULAR",
+        '$ANGULAR_STRUCTURAL_DIRECTIVE',
+        '$ANGULAR_ELEMENT_REF',
+        '$CODE_GUIDE',
+        '^formControlName$',
+        '^icon$',
+        '^label$',
+        '^placeholder$',
+        '^routerLink$',
+        '^[a-z]',
+        '$ANGULAR',
     ],
 
     overrides: [
         {
-            files: "**/*.jsonc",
+            files: '**/*.jsonc',
             options: {
-                trailingComma: "none",
+                trailingComma: 'none',
             },
         },
         {
-            files: "**/.vscode/*.json",
+            files: '**/.vscode/*.json',
             options: {
-                trailingComma: "all",
+                trailingComma: 'all',
             },
         },
     ],
