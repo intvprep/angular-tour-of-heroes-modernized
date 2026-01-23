@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "scripts": {
         "dev": "ng serve",
-        "format": "prettier -w .",
+        "fmt": "prettier -w .",
         "serve": "http-server ./dist/angular-toh-modernized",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
@@ -24,36 +24,20 @@
         "@angular-devkit/build-angular": "^21.1.1",
         "@angular/cli": "^21.1.1",
         "@angular/compiler-cli": "^21.1.1",
+        "@prettier/plugin-oxc": "^0.1.3",
         "@tailwindcss/forms": "^0.5.11",
         "@tailwindcss/postcss": "^4.1.18",
         "http-server": "^14.1.1",
         "postcss": "^8.4.47",
-        "prettier": "^3.2.5",
+        "prettier": "^3.8.1",
         "prettier-plugin-organize-attributes": "^1.0.0",
-        "prettier-plugin-organize-imports": "^3.2.2",
-        "prettier-plugin-tailwindcss": "^0.2.4",
+        "prettier-plugin-organize-imports": "^4.3.0",
+        "prettier-plugin-pkg": "^0.21.2",
+        "prettier-plugin-sh": "^0.18.0",
+        "prettier-plugin-tailwindcss": "^0.7.2",
+        "prettier-plugin-toml": "^2.0.6",
         "tailwindcss": "^4.1.18",
         "tslib": "^2.7.0",
         "typescript": "^5.9.3"
-    },
-    "prettier": {
-        "arrowParens": "avoid",
-        "printWidth": 100,
-        "semi": true,
-        "singleQuote": true,
-        "tabWidth": 4,
-        "attributeGroups": [
-            "$ANGULAR_STRUCTURAL_DIRECTIVE",
-            "$ANGULAR_ELEMENT_REF",
-            "$CODE_GUIDE",
-            "^formControlName$",
-            "^icon$",
-            "^label$",
-            "^placeholder$",
-            "^routerLink$",
-            "^[a-z]",
-            "$ANGULAR"
-        ],
-        "attributeSort": "ASC"
     }
 }
