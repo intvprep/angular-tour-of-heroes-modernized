@@ -73,7 +73,7 @@ import { HeroSearchComponent } from './hero-search.component';
         <app-hero-search />
     `,
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
     /** Reactive state: starts empty, gets populated after HTTP call completes */
     heroes = signal<Hero[]>([]);
     heroService = inject(HeroService);
@@ -83,7 +83,7 @@ export class DashboardComponent {
      * Called once after Angular creates the component and sets up its inputs.
      * .subscribe() triggers the HTTP call and pushes results into the signal.
      */
-    onInit() {
+    ngOnInit() {
         this.heroService.getHeroes().subscribe(heroes => this.heroes.set(heroes.slice(1, 6)));
     }
 }
