@@ -1,3 +1,13 @@
+/**
+ * HeroDetailComponent — Shows and edits a single hero.
+ * Like a Spring MVC @GetMapping("/heroes/{id}") detail page with an update form.
+ *
+ * Key concepts demonstrated:
+ * - input.required<string>() = route parameter binding (like @PathVariable in Spring)
+ * - effect() = a reactive side-effect that re-runs when its tracked signals change
+ *   (like a database trigger or a @EventListener that fires on state change)
+ * - Location.back() = browser history navigation (like response.sendRedirect to previous page)
+ */
 import { Location, NgClass } from '@angular/common';
 import { Component, effect, inject, input, signal } from '@angular/core';
 import { Hero } from '../models/hero';
@@ -33,6 +43,7 @@ import { HeroService } from '../services/hero.service';
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-base leading-6 font-semibold text-gray-900">
+                    <!-- Skeleton loader while data is fetching (like a placeholder in Thymeleaf) -->
                     @if (!hero()) {
                         <span class="flex h-6 w-40 animate-pulse bg-gray-300"></span>
                     } @else {
@@ -59,9 +70,13 @@ import { HeroService } from '../services/hero.service';
                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                         <dt class="text-sm font-medium text-gray-500">Hero name</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                            <!--
+                                #nameInput = template reference variable — gives direct access to the DOM element.
+                                Like document.getElementById() but Angular-managed.
+                                [value] = one-way property binding (TS → HTML)
+                                (input) = event binding (HTML → TS) — fires on every keystroke
+                            -->
                             <!-- FIXME: View encapsulation is causing this input to not pickup @tailwindcss/forms styles -->
-                            <!-- I had to manually add x-axis padding and it's still applying browser default styles -->
-                            <!-- meaning that the reset isn't being picked up for this input either 🤔 -->
                             <input
                                 #nameInput
                                 id="hero-name"
@@ -108,13 +123,30 @@ import { HeroService } from '../services/hero.service';
     `,
 })
 export class HeroDetailComponent {
+    /** Local state for the hero being edited */
     hero = signal<Hero | undefined>(undefined);
+
+    /**
+     * input.required<string>() = a required input bound from the route parameter.
+     * The router's `withComponentInputBinding()` (in main.ts) automatically maps
+     * the `:id` route param to this input. Like @PathVariable Long id in Spring.
+     */
     id = input.required<string>();
 
     private heroService = inject(HeroService);
+    // Location = Angular's wrapper around browser history (window.history)
     private location = inject(Location);
 
     constructor() {
+        /**
+         * effect() = a reactive side-effect. Runs whenever any signal it reads changes.
+         * Here, when `this.id()` changes (user navigates to a different hero),
+         * it fetches the new hero from the server.
+         *
+         * onCleanup = like a finally block or @PreDestroy — runs before the effect
+         * re-executes or when the component is destroyed. Used to unsubscribe from
+         * the HTTP call (cancel in-flight requests).
+         */
         effect(onCleanup => {
             const id = Number.parseInt(this.id(), 10);
             if (Number.isNaN(id)) return;
@@ -122,10 +154,12 @@ export class HeroDetailComponent {
             const subscription = this.heroService.getHero(id).subscribe(hero => {
                 this.hero.set(hero);
             });
+            // Cleanup: unsubscribe to prevent memory leaks (like closing a JDBC connection)
             onCleanup(() => subscription.unsubscribe());
         });
     }
 
+    /** Update the hero's name in local state as the user types */
     onInput(value: string) {
         this.hero.update(hero => {
             if (hero) hero.name = value;
@@ -133,10 +167,12 @@ export class HeroDetailComponent {
         });
     }
 
+    /** Navigate back to the previous page */
     goBack() {
         this.location.back();
     }
 
+    /** Send a PUT request to update the hero, then navigate back */
     save() {
         let hero = this.hero();
 

@@ -1,3 +1,7 @@
+/**
+ * HeroesComponent — Lists all heroes with add/delete functionality.
+ * Like a Spring MVC controller serving a "list all" page with CRUD actions.
+ */
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Hero } from '../models/hero';
@@ -17,6 +21,11 @@ import { NewHeroComponent } from './new-hero.component';
             </div>
         </header>
 
+        <!--
+            [(heroes)]="heroes" = two-way binding with a child component.
+            The child (NewHeroComponent) can read AND write back to this signal.
+            Like passing a mutable reference in Java — the child can modify the parent's list.
+        -->
         <app-new-hero [(heroes)]="heroes" />
 
         @if (!heroes().length) {
@@ -63,6 +72,10 @@ import { NewHeroComponent } from './new-hero.component';
                                 <p class="text-gray-500">Strength, Laser Vision</p>
                             </div>
                             <div class="flex-shrink-0 pr-2">
+                                <!--
+                                    (click) = event binding. Like an onClick handler in JSP/Thymeleaf.
+                                    Calls the delete() method in the component class.
+                                -->
                                 <button
                                     class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-transparent bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
                                     type="button"
@@ -89,6 +102,7 @@ export class HeroesComponent implements OnInit {
     heroes = signal<Hero[]>([]);
     private heroService = inject(HeroService);
 
+    /** @PostConstruct equivalent — fetch heroes when component initializes */
     ngOnInit() {
         this.getHeroes();
     }
@@ -101,6 +115,10 @@ export class HeroesComponent implements OnInit {
             );
     }
 
+    /**
+     * Optimistic delete: removes from UI immediately, then sends DELETE to server.
+     * If the server call fails, the hero is already gone from the UI (no rollback here).
+     */
     delete(hero: Hero) {
         this.heroes.update(heroes => heroes.filter(h => h !== hero));
         this.heroService.deleteHero(hero.id).subscribe();

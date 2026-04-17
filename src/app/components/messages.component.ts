@@ -1,3 +1,11 @@
+/**
+ * MessagesComponent — Displays a timeline of log messages from MessageService.
+ * Like a simple audit log viewer or a Spring Actuator /actuator/logfile page.
+ *
+ * This component reads directly from the injected service's signals —
+ * no need to copy data into local state. The template reactively updates
+ * whenever messageService.messages() or messageService.cleared() changes.
+ */
 import { Component, inject } from '@angular/core';
 import { MessageService } from '../services/message.service';
 
@@ -6,6 +14,10 @@ import { MessageService } from '../services/message.service';
     standalone: true,
     template: `
         <div class="flex flex-row">
+            <!--
+                (click)="messageService.clear()" = directly calls a method on the injected service.
+                This is possible because messageService is a public field.
+            -->
             <button
                 class="ml-auto rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
                 type="button"
@@ -16,7 +28,12 @@ import { MessageService } from '../services/message.service';
         </div>
 
         <div class="flow-root">
-            <!-- Prevent CLS with a placeholder element: https://web.dev/cls/ -->
+            <!--
+                Three states:
+                1. cleared() = user clicked "Clear Messages" → show nothing
+                2. !messages().length && !cleared() = still loading → show spinner
+                3. messages().length > 0 = show the message list
+            -->
             @if (messageService.cleared()) {
                 <span></span>
             } @else if (!messageService.messages().length) {
@@ -43,6 +60,7 @@ import { MessageService } from '../services/message.service';
                     @for (message of messageService.messages(); track message) {
                         <li>
                             <div class="relative pb-8">
+                                <!-- Vertical connector line between timeline items -->
                                 <span
                                     class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
                                     aria-hidden="true"
@@ -84,5 +102,9 @@ import { MessageService } from '../services/message.service';
     `,
 })
 export class MessagesComponent {
+    /**
+     * Public so the template can access it directly.
+     * In Java terms: this is like exposing a @Service bean to a JSP via request attributes.
+     */
     messageService = inject(MessageService);
 }

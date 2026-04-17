@@ -1,3 +1,13 @@
+/**
+ * DashboardComponent — Shows top heroes and a search box.
+ * Like a Spring MVC @Controller method that returns a "dashboard" view.
+ *
+ * Key concepts:
+ * - signal() = reactive state container. When heroes signal changes, the template auto-updates.
+ * - ngOnInit() = lifecycle hook, called after the component is created.
+ *   Like @PostConstruct in Spring — use it for initialization logic.
+ * - inject() = @Autowired equivalent
+ */
 import { Component, OnInit, ViewEncapsulation, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Hero } from '../models/hero';
@@ -8,6 +18,7 @@ import { HeroSearchComponent } from './hero-search.component';
     selector: 'app-dashboard',
     standalone: true,
     imports: [RouterLink, HeroSearchComponent],
+    // ViewEncapsulation.None = styles leak globally (not scoped to this component)
     encapsulation: ViewEncapsulation.None,
     template: `
         <header>
@@ -19,7 +30,11 @@ import { HeroSearchComponent } from './hero-search.component';
         </header>
 
         <div class="flex flex-row justify-center gap-4">
-            <!-- Prevent CLS with a placeholder element: https://web.dev/cls/ -->
+            <!--
+                @if / @for = Angular's built-in control flow (like JSTL <c:if> / <c:forEach> in JSP).
+                heroes() calls the signal — Angular tracks it for reactivity.
+                Show a loading spinner while the HTTP call hasn't returned yet.
+            -->
             @if (!heroes().length) {
                 <span class="px-2 py-1 text-sm font-medium" role="status">
                     <svg
@@ -41,6 +56,7 @@ import { HeroSearchComponent } from './hero-search.component';
                 </span>
             }
 
+            <!-- Loop: "track hero.id" helps Angular efficiently update the DOM (like a natural ID in Hibernate) -->
             @for (hero of heroes(); track hero.id) {
                 <a
                     class="inline-flex items-center rounded-full bg-red-100 px-4 py-2 text-sm font-medium text-red-800 hover:bg-red-200"
@@ -53,14 +69,21 @@ import { HeroSearchComponent } from './hero-search.component';
 
         <hr class="my-8" />
 
+        <!-- Self-closing component tag — renders the hero search box -->
         <app-hero-search />
     `,
 })
 export class DashboardComponent implements OnInit {
+    /** Reactive state: starts empty, gets populated after HTTP call completes */
     heroes = signal<Hero[]>([]);
     heroService = inject(HeroService);
 
+    /**
+     * ngOnInit = @PostConstruct lifecycle hook.
+     * Called once after Angular creates the component and sets up its inputs.
+     * .subscribe() triggers the HTTP call and pushes results into the signal.
+     */
     ngOnInit() {
-        this.heroService.getHeroes().subscribe(heroes => this.heroes.set(heroes.slice(1, 5)));
+        this.heroService.getHeroes().subscribe(heroes => this.heroes.set(heroes.slice(1, 6)));
     }
 }

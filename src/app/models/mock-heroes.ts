@@ -1,5 +1,9 @@
 import { Hero } from './hero';
 
+/**
+ * Static test data — like seed data in a Spring Boot data.sql or a JUnit test fixture.
+ * `as const` would make it deeply immutable; here it's typed as Hero[].
+ */
 export const HEROES: Hero[] = [
     { id: 12, name: 'Dr. Nice' },
     { id: 13, name: 'Bombasto' },
