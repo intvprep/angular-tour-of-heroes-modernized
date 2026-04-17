@@ -35,7 +35,7 @@ import { HeroSearchComponent } from './hero-search.component';
                 heroes() calls the signal — Angular tracks it for reactivity.
                 Show a loading spinner while the HTTP call hasn't returned yet.
             -->
-            @if (!heroes().length) {
+            @if (!heroes.length) {
                 <span class="px-2 py-1 text-sm font-medium" role="status">
                     <svg
                         class="mr-2 h-7 w-7 animate-spin fill-red-600 text-gray-200"
@@ -57,7 +57,7 @@ import { HeroSearchComponent } from './hero-search.component';
             }
 
             <!-- Loop: "track hero.id" helps Angular efficiently update the DOM (like a natural ID in Hibernate) -->
-            @for (hero of heroes(); track hero.id) {
+            @for (hero of heroes; track hero.id) {
                 <a
                     class="inline-flex items-center rounded-full bg-red-100 px-4 py-2 text-sm font-medium text-red-800 hover:bg-red-200"
                     routerLink="/detail/{{ hero.id }}"
