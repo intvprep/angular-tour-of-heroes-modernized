@@ -44,7 +44,7 @@ export class HeroService {
     };
 
     // inject() = @Autowired — Angular's DI injects these singleton services
-    private http = new HttpClient();
+    private http = inject(HttpClient);
     private messageService = inject(MessageService);
 
     /** GET heroes from the server — like a @GetMapping("/heroes") handler */

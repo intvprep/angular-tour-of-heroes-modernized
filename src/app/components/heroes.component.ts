@@ -109,10 +109,7 @@ export class HeroesComponent implements OnInit {
 
     getHeroes() {
         this.heroService
-            .getHeroes()
-            .subscribe(heroes =>
-                this.heroes.set(heroes.sort((lhs, rhs) => lhs.name.localeCompare(rhs.name))),
-            );
+            .getHeroes();
     }
 
     /**
