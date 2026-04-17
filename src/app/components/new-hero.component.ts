@@ -6,7 +6,7 @@
  * The parent passes a signal via [(heroes)]="heroes", and this component
  * can both read and write it. Like passing a mutable List<Hero> reference in Java.
  */
-import { Component, inject, model } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Hero } from '../models/hero';
 import { HeroService } from '../services/hero.service';
 
@@ -68,7 +68,7 @@ export class NewHeroComponent {
      * The parent uses [(heroes)]="heroes" syntax to bind it.
      * When this component calls heroes.update(), the parent's signal updates too.
      */
-    heroes = model.required<Hero[]>();
+    heroes = input.required<Hero[]>();
     private heroService = inject(HeroService);
 
     /** POST a new hero to the server, then append it to the local list */

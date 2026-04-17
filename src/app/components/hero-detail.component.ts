@@ -101,7 +101,7 @@ import { HeroService } from '../services/hero.service';
                                     'px-3',
                                 ]"
                                 [value]="hero()?.name"
-                                [input]="onInput(nameInput.value)"
+                                (input)="onInput(nameInput.value)"
                             />
                         </dd>
                     </div>
