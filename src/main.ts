@@ -47,7 +47,7 @@ const routes: Routes = [
         title: 'Dashboard | Tour of Heroes',
     },
     {
-        path: 'detail/:id',
+        path: 'detail/:heroId',
         component: HeroDetailComponent,
         // TODO: Implement with resolver data to get the name of the hero
         // title(route, state) {
